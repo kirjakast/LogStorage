@@ -17,7 +17,7 @@ def insert(application,environment,log_path):
 def view():
     conn=sqlite3.connect("baas.db")
     cur=conn.cursor()
-    cur.execute("SELECT * FROM logpath")
+    cur.execute("SELECT * FROM logpath ORDER BY application ASC")
     rows=cur.fetchall()
     conn.close()
     return rows
@@ -41,11 +41,11 @@ def search(application="",environment="",log_path=""):
             l.append(v)
 
     if len(l) == 3:
-        cur.execute("SELECT * FROM logpath WHERE " + t[0]+"=? AND " + t[1]+"=? AND "+ t[2]+"=?", (l[0],l[1],l[2],))
+        cur.execute("SELECT * FROM logpath WHERE " + t[0]+"=? AND " + t[1]+"=? AND "+ t[2]+"=? ORDER BY environment DESC", (l[0],l[1],l[2],))
     elif len(l) == 2:
-        cur.execute("SELECT * FROM logpath WHERE " + t[0]+"=? AND " + t[1]+"=?" , (l[0],l[1],))
+        cur.execute("SELECT * FROM logpath WHERE " + t[0]+"=? AND " + t[1]+"=? ORDER BY environment DESC" , (l[0],l[1],))
     elif len(l) == 1:
-        cur.execute("SELECT * FROM logpath WHERE " + t[0]+"=?" , (l[0],))
+        cur.execute("SELECT * FROM logpath WHERE " + t[0]+"=? ORDER BY environment DESC" , (l[0],))
     rows=cur.fetchall()
     conn.close()
     return rows
