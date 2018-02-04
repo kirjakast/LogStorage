@@ -54,37 +54,37 @@ window.wm_title("LogStorage")
 
 #Lables
 l1=Label(window,text="Rakendus")
-l1.grid(row=0,column=0)
+l1.grid(row=0,column=0,sticky=W)
 
 l2=Label(window,text="Keskkond")
-l2.grid(row=0,column=2)
+l2.grid(row=1,column=0,sticky=W)
 
 l3=Label(window,text="Asukoht")
-l3.grid(row=1,column=0)
+l3.grid(row=2,column=0,sticky=W)
 
 #Entries
 #Rakendus
 application_text=StringVar()
 e1=Entry(window,textvariable=application_text)
-e1.grid(row=0,column=1)
+e1.grid(row=0,column=1,sticky=W)
 
 #Keskkond
 environment_text=StringVar()
 e2=Entry(window,textvariable=environment_text)
-e2.grid(row=0,column=3)
+e2.grid(row=1,column=1,sticky=W)
 
 #Asukoht
 path_text=StringVar()
-e3=Entry(window,textvariable=path_text)
-e3.grid(row=1,column=1)
+e3=Entry(window,textvariable=path_text,width=100)
+e3.grid(row=2,column=1,sticky=W)
 
 #Loome lihtsalt Listboxi
-list1=Listbox(window,height=5,width=35)
-list1.grid(row=2,column=0,rowspan=6,columnspan=2)
+list1=Listbox(window,height=15,width=110)
+list1.grid(row=3,column=0,rowspan=6,columnspan=2)
 
 #1. Loome lihtsalt skrollbari
 sb1=Scrollbar(window)
-sb1.grid(row=2,column=2,rowspan=6)
+sb1.grid(row=3,column=2,rowspan=6)
 
 #2. Seadistame äsja loodud listboxi ja scrollbari, et nad mõistakisd üksteist
 list1.configure(yscrollcommand=sb1.set) #Listi y telje küljes on eelnevalt loodud scrollbar
@@ -96,22 +96,22 @@ list1.bind('<<ListboxSelect>>',get_selected_row)
 
 #------------------------------NUPUD----------------------------------------------
 b1=Button(window,text="Vaata",width=12,command=view_command)
-b1.grid(row=2,column=3)
+b1.grid(row=3,column=3)
 
 b2=Button(window,text="Otsi",width=12,command=search_command)
-b2.grid(row=3,column=3)
+b2.grid(row=4,column=3)
 
 b3=Button(window,text="Lisa",width=12,command=add_command)
-b3.grid(row=4,column=3)
+b3.grid(row=5,column=3)
 
 b4=Button(window,text="Uuenda",width=12, command=update_command)
-b4.grid(row=5,column=3)
+b4.grid(row=6,column=3)
 
 b5=Button(window,text="Kustuta",width=12,command=delete_command)
-b5.grid(row=6,column=3)
+b5.grid(row=7,column=3)
 
 b6=Button(window,text="Sulge",width=12,command=window.destroy)
-b6.grid(row=7,column=3)
+b6.grid(row=8,column=3)
 
 
 
