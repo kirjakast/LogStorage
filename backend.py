@@ -10,7 +10,7 @@ def connect():
 def insert(application,environment,log_path,log_type,log_note):
     conn=sqlite3.connect("baas.db")
     cur=conn.cursor()
-    cur.execute("INSERT INTO logpath VALUES (NULL,lower(?),lower(?),lower(?),lower(?),lower(?))",(application,environment,log_path,log_type,log_note))
+    cur.execute("INSERT INTO logpath VALUES (NULL,lower(?),lower(?),lower(?),lower(?),?)",(application,environment,log_path,log_type,log_note))
     conn.commit()
     conn.close()
 
@@ -68,7 +68,7 @@ def delete(id):
 def update(id,application,environment,log_path,log_type,log_note):
     conn=sqlite3.connect("baas.db")
     cur=conn.cursor()
-    cur.execute("UPDATE logpath SET application=lower(?), environment=lower(?), log_path=lower(?), log_type=lower(?), log_note=lower(?) WHERE id=?",(application,environment,log_path,log_type,log_note,id))
+    cur.execute("UPDATE logpath SET application=lower(?), environment=lower(?), log_path=lower(?), log_type=lower(?), log_note=? WHERE id=?",(application,environment,log_path,log_type,log_note,id))
     conn.commit()
     conn.close()
 connect()
