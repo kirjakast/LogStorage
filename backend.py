@@ -25,7 +25,27 @@ def view():
 def search(application="",environment="",log_path=""):
     conn=sqlite3.connect("baas.db")
     cur=conn.cursor()
-    cur.execute("SELECT * FROM logpath WHERE application=? OR environment=? OR log_path=?", (application,environment,log_path))
+
+    dict = {}
+    if application != "":
+        dict['application'] = application
+    if environment != "":
+        dict['environment'] = environment
+    if log_path != "":
+        dict['log_path'] = log_path
+
+    t = []
+    l = []
+    for k,v in dict.items():
+            t.append(k)
+            l.append(v)
+
+    if len(l) == 3:
+        cur.execute("SELECT * FROM logpath WHERE " + t[0]+"=? AND " + t[1]+"=? AND "+ t[2]+"=?", (l[0],l[1],l[2],))
+    elif len(l) == 2:
+        cur.execute("SELECT * FROM logpath WHERE " + t[0]+"=? AND " + t[1]+"=?" , (l[0],l[1],))
+    elif len(l) == 1:
+        cur.execute("SELECT * FROM logpath WHERE " + t[0]+"=?" , (l[0],))
     rows=cur.fetchall()
     conn.close()
     return rows
@@ -44,9 +64,3 @@ def update(id,application,environment,log_path):
     conn.commit()
     conn.close()
 connect()
-#insert("SADHES","Live","/usr/home/list")
-#delete(8)
-#print(view())
-#update(7,"SADHES","Koolitus","/home")
-#print(view())
-#print(search(application="SADHES"))
